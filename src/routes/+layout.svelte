@@ -13,14 +13,14 @@
 <header class="sticky top-0 z-50 border-b-2 bg-white/80 backdrop-blur">
 	<div class="mx-auto px-6">
 		<nav class="flex gap-4 py-4">
-			<h2> <a href="/">Favorite Dishes</a> </h2>
-			<h2><a href="/adventures">Cooking Adventures</a></h2>
-			<h2><a href="/about">About Me</a></h2>
+			<p class="text-base text-black p-0"><a href="/">Home</a></p>
+			<p class="text-base text-black p-0"><a href="/adventures">Cooking Adventures</a></p>
+			<p class="text-base text-black p-0"><a href="/about">About Me</a></p>
 		</nav>
 	</div>
 </header>
 
-<main> 
+<main > 
 	{@render children()}
 </main>
 

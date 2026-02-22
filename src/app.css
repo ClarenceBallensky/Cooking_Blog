@@ -125,11 +125,18 @@
     font-family: var(--font-paragraph);
     @apply bg-background text-foreground;
   }
-  h1 {
+  h1, h2, h3 {
     font-family: var(--font-heading);
-    @apply text-4xl font-bold tracking-tight 
+    @apply font-bold tracking-tight
+  }
+  h1 {
+     @apply text-4xl
   }
   h2 {
-    @apply text-lg
+    @apply text-2xl
   }
+  h3 {
+    @apply text-xl
+  }
+
 }
