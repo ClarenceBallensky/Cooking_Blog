@@ -1,6 +1,10 @@
 <script lang=ts>
-    import * as Select from "$lib/components/ui/select/index.js";
+    import * as Select from "$lib/components/ui/select/index.js"; //select box for sandwich / quesadilla
+    import { Checkbox } from "$lib/components/ui/checkbox/index.js"; //checkbox for poke bowl 
+    import { Label } from "$lib/components/ui/label/index.js"; //label as a component of checkbox for poke bowl
+    import { Button } from "$lib/components/ui/button/index.js"; //button for submitting poke bowl selections 
     
+    // start sandwich select box
     const variations = [
         { value: "gcheese", label: "Sandwich"},
         { value: "ques", label: "Loaded Quesadilla"}
@@ -11,6 +15,30 @@
     const triggerContent = $derived(
         variations.find((f) => f.value === value)?.label ?? "Select your favorite"
     );
+    // end sandwich select box 
+
+    // start poke bowl checkboxes
+
+    let showResults = $state(false);
+
+    let proteins = $state<string[]>([]);
+    let toppings = $state<string[]>([]);
+    let sauces = $state<string[]>([]);
+
+    $effect(() => {
+        proteins;
+        toppings;
+        sauces;
+
+        showResults = false;
+    });
+
+    function toggleItem(list: string[], value: string) {
+    return list.includes(value)
+        ? list.filter(v => v !== value)
+        : [...list, value];
+    }
+    // end poke bowl checkboxes
 </script>
 
 <div class="p-6">
@@ -146,27 +174,162 @@
                 {/if}
             </div>
 
-            <!-- Poke Bowl Section -->
+            <!-- Poke Bowl -->
             <div class="mb-10"> 
-                <h2 id="poke_bowl">Poke Bowl</h2>
+                <h2 id="poke_bowl" class="py-4">Poke Bowl</h2>
 
-                <img 
-                    src="/images/Poke_Bowl.jpg"
-                    alt="Poke Bowl"
-                    class="rounded-lg w-64"
-                />
+                <div class="flex gap-6 items-start"> <!-- this div allows me to put checkboxes to the right of the image instead of beneath it -->
+                    <!-- image -->
+                    <div class="flex-shrink-0">
+                        <img 
+                            src="/images/Poke_Bowl.jpg"
+                            alt="Poke Bowl"
+                            class="rounded-lg w-90"
+                        />
+                    </div>
+
+
+                    <div class="flex flex-col gap-6"> <!-- wrapper for checkboxes AND button -->
+
+                        <div>
+                            <h2 class="mb-4">Poke Bowl Personality Test</h2>
+                            <p>Create your dream poke bowl, and I'll guess your personality type!</p>
+                        </div>
+
+                        <!-- checkboxes -->
+                        <div class="flex gap-6 items-start"> <!-- wrapper for checkboxes -->
+
+                            <!-- protein-->
+                            <div class="flex flex-col gap-6">
+                                <h3 class="mb-2">Protein</h3>
+                                <div class="flex flex-col gap-6">
+                                    <div class="flex items-center gap-3">
+                                        <Checkbox id="salmon"
+                                                  checked={proteins.includes("salmon")}
+                                                  onCheckedChange={(checked) => 
+                                                  
+                                                    proteins = checked
+                                                        ? [...proteins, "salmon"]
+                                                        : proteins.filter(p => p !== "salmon")
+                                                  }
+                                        />
+                                        <Label for="salmon">Salmon</Label>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="tuna"
+                                                  checked={proteins.includes("tuna")}
+                                                  onCheckedChange={(checked) =>
+                                                    proteins = checked
+                                                        ? [...proteins, "tuna"]
+                                                        : proteins.filter(p => p !== "tuna")
+                                                  }
+                                        />
+                                        <Label for="tuna">Tuna</Label>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="tofu" 
+                                                  checked={proteins.includes("tofu")}
+                                                  onCheckedChange={(checked) =>
+                                                    proteins = checked
+                                                        ? [...proteins, "tofu"]
+                                                        : proteins.filter(p => p !== "tofu")
+                                                  }
+                                        />
+                                        <Label for="tofu">Tofu</Label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- toppings -->
+                            <div class="flex flex-col gap-6">
+                                <h3 class="mb-2">Toppings</h3>
+                                <div class="flex flex-col gap-6">
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="mukimame" />
+                                        <div class="grid gap-2">
+                                            <Label for="mukimame">Mukimame</Label>
+                                            <p class="text-muted-foreground text-sm">
+                                                Mukimame is the Japanese term for
+                                            </p>
+                                            <p class="text-muted-foreground text-sm">
+                                                shelled edamame 
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="pineapple" />
+                                        <Label for="pineapple">Pineapple</Label>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="seaweed" />
+                                        <Label for="seaweed">Seaweed Salad</Label>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="crisps" />
+                                        <Label for="crisps">Tempura Crisps</Label>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="avocado" />
+                                        <Label for="avocado">Avocado</Label>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- sauces -->
+                            <div class="flex flex-col gap-6">
+                                <h3 class="mb-2">Sauces</h3>
+                                <div class="flex flex-col gap-6">
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="eel_sauce" />
+                                        <Label for="eel_sauce">Eel Sauce</Label>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="spicy_mayo_sauce" />
+                                        <Label for="spicy_mayo_sauce">Spicy Mayo</Label>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <Checkbox id="sriracha_sauce" />
+                                        <Label for="sriracha_sauce">Sriracha</Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div> <!-- wrapper for button -->
+                            <!-- button -->
+                            <Button size="sm" 
+                                    onclick={() => showResults = true}
+                            >
+                                Get my results!
+                            </Button>
+                        </div>
+
+                        {#if showResults}
+                            {#if proteins.includes("salmon")}
+                                <p> Salmon adds richness and omega-3s.</p>
+                            {/if}
+                        {/if}
+
+
+                    </div>
+
+                </div>
 
             </div>
             
             <!-- Persian Kebab Section -->
             <div class="mb-10"> 
-                <h2 id="kebab">Persian Kebab</h2>
+                <h2 id="kebab" class="py-4">Persian Kebab</h2>
 
                 <img 
                     src="/images/Persian_Kebab.jpg"
                     alt="Persian Kebab"
                     class="rounded-lg w-64"
                 />
+
+                <p class="leading-relaxed mb-4">
+
+                </p>
 
             </div>
 
