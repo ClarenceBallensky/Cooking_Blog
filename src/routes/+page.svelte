@@ -25,6 +25,9 @@
     let toppings = $state<string[]>([]);
     let sauces = $state<string[]>([]);
 
+    let itemSelected = $state(false);
+
+
     $effect(() => {
         proteins;
         toppings;
@@ -38,6 +41,45 @@
         ? list.filter(v => v !== value)
         : [...list, value];
     }
+
+    const ALL_PROTEINS = ["salmon", "tuna", "tofu"];
+    const ALL_TOPPINGS = ["mukimame", "pineapple", "seaweed", "crisps", "avocado"];
+    const ALL_SAUCES   = ["eel_sauce", "spicy_mayo_sauce", "sriracha_sauce"];
+
+  
+
+    let isEnthusiast = $derived(
+        proteins.length === ALL_PROTEINS.length &&
+        toppings.length === ALL_TOPPINGS.length &&
+        sauces.length   === ALL_SAUCES.length
+    );
+
+    let noneSelected = $derived(
+        proteins.length === 0 &&
+        toppings.length === 0 &&
+        sauces.length   === 0
+    );
+
+    let isProteinLover = $derived(
+        proteins.length === ALL_PROTEINS.length
+    );
+
+    let isSpiceLover = $derived(
+        sauces.includes("sriracha_sauce")
+    );
+
+    let isToppingsLover = $derived(
+        toppings.length == ALL_TOPPINGS.length 
+    );
+
+    let isVegetarian = $derived(
+        !proteins.includes("salmon") &&
+        !proteins.includes("tuna")
+    );
+
+    
+
+   
     // end poke bowl checkboxes
 </script>
 
@@ -54,12 +96,12 @@
                 <h2 id="sandwich_quesadilla" class="py-4">Sandwich / Loaded Quesadilla</h2>
                 
                 <img 
-                    src="/images/Sandwich_and_Quesadilla.jpg" 
+                    src="/images/Sandwich_and_Quesadilla_MediumSize.jpeg" 
                     alt="Sandwich and Quesadilla" 
-                    class="w-80 rounded-sm float-left mr-6 mb-4" 
+                    class="w-90 rounded-sm float-left mr-6 mb-4" 
                 />
 
-                <p class="leading-relaxed mb-4">
+                <p class="leading-relaxed mb-4 mr-4">
                     During my first year of college, I spent most of my time in two places: my dorm room, and the cafeteria. The cafetaria wasn't just 
                     my best option for a filling meal; it was a place to make new friends, study, and hang out in-between classes. However, as grateful
                     as I am for my freshman year cafeteria experience, it quickly came to my attention that the food was, well, diabolical. I was spoiled on my
@@ -192,8 +234,8 @@
                     <div class="flex flex-col gap-6"> <!-- wrapper for checkboxes AND button -->
 
                         <div>
-                            <h2 class="mb-4">Poke Bowl Personality Test</h2>
-                            <p>Create your dream poke bowl, and I'll guess your personality type!</p>
+                            <h2 class="mb-4">Poke Bowl Personality Test!</h2>
+                            <p>Create your dream poke bowl, and I'll tell you what it says about you.</p>
                         </div>
 
                         <!-- checkboxes -->
@@ -207,7 +249,6 @@
                                         <Checkbox id="salmon"
                                                   checked={proteins.includes("salmon")}
                                                   onCheckedChange={(checked) => 
-                                                  
                                                     proteins = checked
                                                         ? [...proteins, "salmon"]
                                                         : proteins.filter(p => p !== "salmon")
@@ -245,7 +286,14 @@
                                 <h3 class="mb-2">Toppings</h3>
                                 <div class="flex flex-col gap-6">
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="mukimame" />
+                                        <Checkbox id="mukimame" 
+                                                  checked={toppings.includes("mukimame")}
+                                                  onCheckedChange={(checked) =>
+                                                    toppings = checked
+                                                        ? [...toppings, "mukimame"]
+                                                        : toppings.filter(p => p !== "mukimame")
+                                                  }
+                                        />
                                         <div class="grid gap-2">
                                             <Label for="mukimame">Mukimame</Label>
                                             <p class="text-muted-foreground text-sm">
@@ -257,19 +305,45 @@
                                         </div>
                                     </div>
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="pineapple" />
+                                        <Checkbox id="pineapple" 
+                                                  checked={toppings.includes("pineapple")}
+                                                  onCheckedChange={(checked) =>
+                                                    toppings = checked
+                                                        ? [...toppings, "pineapple"]
+                                                        : toppings.filter(p => p !== "pineapple")
+                                                  }
+                                        />
                                         <Label for="pineapple">Pineapple</Label>
                                     </div>
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="seaweed" />
+                                        <Checkbox id="seaweed" 
+                                                  checked={toppings.includes("seaweed")}
+                                                  onCheckedChange={(checked) =>
+                                                    toppings = checked
+                                                        ? [...toppings, "seaweed"]
+                                                        : toppings.filter(p => p !== "seaweed")
+                                                  }
+                                        />
                                         <Label for="seaweed">Seaweed Salad</Label>
                                     </div>
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="crisps" />
+                                        <Checkbox id="crisps" 
+                                                  checked={toppings.includes("crisps")}
+                                                  onCheckedChange={(checked) =>
+                                                    toppings = checked
+                                                        ? [...toppings, "crisps"]
+                                                        : toppings.filter(p => p !== "crisps")
+                                                  }/>
                                         <Label for="crisps">Tempura Crisps</Label>
                                     </div>
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="avocado" />
+                                        <Checkbox id="avocado" 
+                                                  checked={toppings.includes("avocado")}
+                                                  onCheckedChange={(checked) =>
+                                                    toppings = checked
+                                                        ? [...toppings, "avocado"]
+                                                        : toppings.filter(p => p !== "avocado")
+                                                  }/>
                                         <Label for="avocado">Avocado</Label>
                                     </div>
                                 </div>
@@ -280,15 +354,36 @@
                                 <h3 class="mb-2">Sauces</h3>
                                 <div class="flex flex-col gap-6">
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="eel_sauce" />
+                                        <Checkbox id="eel_sauce" 
+                                                  checked={sauces.includes("eel_sauce")}
+                                                  onCheckedChange={(checked) =>
+                                                    sauces = checked
+                                                        ? [...sauces, "eel_sauce"]
+                                                        : sauces.filter(p => p !== "eel_sauce")
+                                                  }
+                                        />
                                         <Label for="eel_sauce">Eel Sauce</Label>
                                     </div>
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="spicy_mayo_sauce" />
+                                        <Checkbox id="spicy_mayo_sauce" 
+                                                  checked={sauces.includes("spicy_mayo_sauce")}
+                                                  onCheckedChange={(checked) =>
+                                                    sauces = checked
+                                                        ? [...sauces, "spicy_mayo_sauce"]
+                                                        : sauces.filter(p => p !== "spicy_mayo_sauce")
+                                                  }
+                                        />
                                         <Label for="spicy_mayo_sauce">Spicy Mayo</Label>
                                     </div>
                                     <div class="flex items-start gap-3">
-                                        <Checkbox id="sriracha_sauce" />
+                                        <Checkbox id="sriracha_sauce" 
+                                                  checked={sauces.includes("sriracha_sauce")}
+                                                  onCheckedChange={(checked) =>
+                                                    sauces = checked
+                                                        ? [...sauces, "sriracha_sauce"]
+                                                        : sauces.filter(p => p !== "sriracha_sauce")
+                                                  }
+                                        />
                                         <Label for="sriracha_sauce">Sriracha</Label>
                                     </div>
                                 </div>
@@ -304,10 +399,60 @@
                             </Button>
                         </div>
 
-                        {#if showResults}
-                            {#if proteins.includes("salmon")}
-                                <p> Salmon adds richness and omega-3s.</p>
+                        {#if showResults} <!-- once button is clicked -->
+                            {#if isEnthusiast}
+                                <h3>The Enthusiast! 💗</h3>
+                                <p>You say yes to everything--even when you shouldn't. You're adventerous and outgoing,
+                                    and people can't help but gravitate towards you when you walk into a room. Your open-mindedness 
+                                    allows you to connect with people from all different backgrounds. Keep living your best life.
+                                </p>
+                            {:else if noneSelected}
+                                <h3>The Minimalist... 💀</h3>
+                                <p>Maybe you're not hungry right now, or maybe you wanted to see what my website would do if you
+                                    made no selections whatsoever then clicked the button. You're not one to let The Man boss you around.
+                                    You're a curious person with strong beliefs; seeing is believing. You may sit at the back of the class,
+                                    but you're listening to every word. Stay spunky. 
+                                </p>
+                            {:else if isProteinLover}
+                                <h3 class="pt-7">The Protein Lover! 💪</h3>
+                                <p>You wouldn't skip a day at the gym if zombies were roaming the streets. You are diligent and 
+                                    hardworking. You know that you owe yourself your best every day, and you continously strive 
+                                    for self improvement. Your loved ones see the hard work you put in everyday, and they are 
+                                    proud of you.
+                                </p>
+                            {:else if isSpiceLover}
+                                <h3>The Spice Lover! 🌶️</h3>
+                                <p>You were never one to turn down a dare; you like to live life on the edge,
+                                   keep things exciting. Maybe you've tried out bungey jumping or skydiving. Or
+                                   maybe you dance extra crazy at the club. Whatever the case may be, your friends
+                                   know they can count on you for a good time. 
+                                </p>
+                            {:else if isToppingsLover}
+                                <h3>The Toppings Lover! 🥗</h3>
+                                <p>Why would you settle for less when you could live life to it's fullest? Your optimism about life is attractive
+                                    to strangers and friends alike. Your can-do energy will bring you success in your career and personal life,
+                                    affording you opportunities wherever you go. Staying active will ensure you keep your youthful glow even as 
+                                    you age.   
+                                </p>
+                            {:else if isVegetarian}
+                                <h3>The Vegetarian! 🌿</h3>
+                                <p>Maybe you don't like the thought of hurting animals, or maybe the thought of raw
+                                    fish just grosses you out. Either way, you are a thoughtful and introspective person. You take the 
+                                    time to notice the things that others miss. You have the patience to work on projects to completion,
+                                    always putting your best foot forward. Tranquility is your strength. 
+                                </p>
+                            {:else}
+                                <h3>The Crowd Pleaser 😎</h3>
+                                <p>You are the ultimate team player, always willing to go with the flow. Your laid back attitude makes your
+                                    friends and coworkers feel at ease when they're around you. You're the perfect person to chill with on
+                                    a Sunday afternoon. Your openness to different kinds of opportunites gives you a well-rounded perspective on
+                                    life. Stay cool. 
+                                </p>
+                            
                             {/if}
+                            
+
+
                         {/if}
 
 
