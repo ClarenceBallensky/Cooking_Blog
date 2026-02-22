@@ -35,7 +35,7 @@
             <h3 class="mb-4">Q&A</h3>
 
             <Accordion.Root type="single" class="w-full sm:max-w-[70%]">
-                <Accordion.Item value="item-1">
+                <Accordion.Item value="item-1" class="border-b border-black">
                     <Accordion.Trigger>Do you have any cooking tips?</Accordion.Trigger>
                     <Accordion.Content class="flex flex-col gap-4 text-balance">
                         <p>
@@ -44,7 +44,7 @@
                         </p>
                     </Accordion.Content>
                 </Accordion.Item>
-                <Accordion.Item value="item-2">
+                <Accordion.Item value="item-2" class="border-b border-black"> 
                     <Accordion.Trigger>Where do you go to find new recipes?</Accordion.Trigger>
                     <Accordion.Content class="flex flex-col gap-4 text-balance">
                         <p>
@@ -53,7 +53,7 @@
                         </p>
                     </Accordion.Content>
                 </Accordion.Item>
-                 <Accordion.Item value="item-3">
+                 <Accordion.Item value="item-3" class="border-b border-black">
                     <Accordion.Trigger>What is your favorite dish to make?</Accordion.Trigger>
                     <Accordion.Content class="flex flex-col gap-4 text-balance">
                         <p>
