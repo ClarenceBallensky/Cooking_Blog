@@ -2,7 +2,10 @@
     import * as Select from "$lib/components/ui/select/index.js"; //select box for sandwich / quesadilla
     import { Checkbox } from "$lib/components/ui/checkbox/index.js"; //checkbox for poke bowl 
     import { Label } from "$lib/components/ui/label/index.js"; //label as a component of checkbox for poke bowl
-    import { Button } from "$lib/components/ui/button/index.js"; //button for submitting poke bowl selections 
+    import { Button } from "$lib/components/ui/button/index.js"; //button for submitting poke bowl selections
+    import * as ButtonGroup from "$lib/components/ui/button-group/index.js"; //for customizing portion size for persian kebab
+    import Minus from "@lucide/svelte/icons/minus";
+    import Plus from "@lucide/svelte/icons/plus"; 
     
     // start sandwich select box
     const variations = [
@@ -76,11 +79,18 @@
         !proteins.includes("salmon") &&
         !proteins.includes("tuna")
     );
-
-    
-
    
     // end poke bowl checkboxes
+
+
+    // start persian kebab portions
+    let portion = $state(1);
+
+    let is1x = $derived(portion === 1);
+    let is2x = $derived(portion === 2);
+    let is3x = $derived(portion === 3);
+
+    // end persian kebab portions
 </script>
 
 <div class="p-6">
@@ -234,7 +244,7 @@
                     <div class="flex flex-col gap-6"> <!-- wrapper for checkboxes AND button -->
 
                         <div>
-                            <h2 class="mb-4">Poke Bowl Personality Test!</h2>
+                            <h3 class="mb-4">Poke Bowl Personality Test!</h3>
                             <p>Create your dream poke bowl, and I'll tell you what it says about you.</p>
                         </div>
 
@@ -243,7 +253,7 @@
 
                             <!-- protein-->
                             <div class="flex flex-col gap-6">
-                                <h3 class="mb-2">Protein</h3>
+                                <h4 class="mb-2"><u>Protein</u></h4>
                                 <div class="flex flex-col gap-6">
                                     <div class="flex items-center gap-3">
                                         <Checkbox id="salmon"
@@ -283,7 +293,7 @@
 
                             <!-- toppings -->
                             <div class="flex flex-col gap-6">
-                                <h3 class="mb-2">Toppings</h3>
+                                <h4 class="mb-2"><u>Toppings</u></h4>
                                 <div class="flex flex-col gap-6">
                                     <div class="flex items-start gap-3">
                                         <Checkbox id="mukimame" 
@@ -351,7 +361,7 @@
                     
                             <!-- sauces -->
                             <div class="flex flex-col gap-6">
-                                <h3 class="mb-2">Sauces</h3>
+                                <h4 class="mb-2"><u>Sauces</u></h4>
                                 <div class="flex flex-col gap-6">
                                     <div class="flex items-start gap-3">
                                         <Checkbox id="eel_sauce" 
@@ -464,17 +474,71 @@
             
             <!-- Persian Kebab Section -->
             <div class="mb-10"> 
+
                 <h2 id="kebab" class="py-4">Persian Kebab</h2>
 
-                <img 
-                    src="/images/Persian_Kebab.jpg"
-                    alt="Persian Kebab"
-                    class="rounded-lg w-64"
-                />
+                <div class="flex gap-6 items-start"> <!-- allows me to put content to the right of the image -->
+                    
+                    <div class="flex-shrink-0">
+                        <img 
+                            src="/images/Persian_Kebab.jpg"
+                            alt="Persian Kebab"
+                            class="rounded-lg w-64"
+                        />
+                    </div>
 
-                <p class="leading-relaxed mb-4">
+                    <div class="flex flex-col gap-2"> <!-- wrapper for ingredients list -->
+                        <h3>Ingredients</h3>
 
-                </p>
+                        <div class="flex flex-col gap-6">
+                            <ul class="list-disc pl-6 space-y-1"> 
+                                <li>basmati rice</li>
+                                <li>ground saffron</li>
+                                <li>ground beef, 80% lean</li>
+                                <li>white onion</li>
+                                <li>salt</li>
+                                <li>black pepper</li>
+                                <li>roma tomatoes</li>
+                                <li>pepper</li>
+                            </ul>
+                        </div>
+
+                    </div> 
+
+                    <div class="flex items-center gap-4"> <!-- wrapper for portion button -->
+                        <p>Portion</p>
+                        <ButtonGroup.Root>
+                            <Button onclick={() => portion = 1}
+                                    class={`py-2 transition-colors ${
+                                        is1x
+                                        ? "bg-primary text-primary-foreground"
+                                        : "bg-muted text-foreground hover:bg-accent"
+                                }`}
+                            >
+                                1x
+                            </Button>
+                            <Button onclick={() => portion = 2}
+                                    class={`py-2 transition-colors ${
+                                        is2x
+                                        ? "bg-primary text-primary-foreground"
+                                        : "bg-muted text-foreground hover:bg-accent"
+                                }`}
+                            >
+                                2x
+                            </Button>
+                            <Button onclick={() => portion = 3} 
+                                    class={`py-2 transition-colors ${
+                                        is3x
+                                        ? "bg-primary text-primary-foreground"
+                                        : "bg-muted text-foreground hover:bg-accent"
+                                }`}
+                            >
+                                3x
+                            </Button>
+                        </ButtonGroup.Root>
+                    </div>
+
+                </div>
 
             </div>
 
