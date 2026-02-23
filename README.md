@@ -26,6 +26,8 @@ Modern UI styling with utility-first CSS
 Languages: HTML, TypeScript
 
 ## 📸 Preview 
+<img width="1855" height="912" alt="image" src="https://github.com/user-attachments/assets/03f44709-8216-4ace-9916-9d92d61891b9" />
+
 ## 🛠️ Installation & Setup
 Dependencies:
 - Node.js (v18 or higher recommended)
