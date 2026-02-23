@@ -500,7 +500,7 @@
                         <img 
                             src="/images/Persian_Kebab.jpg"
                             alt="Persian Kebab"
-                            class="rounded-lg w-64"
+                            class="rounded-lg w-90"
                         />
                     </div>
 
@@ -566,8 +566,12 @@
                         <div>
                             <h3>Instructions</h3>
                             <ol class="list-decimal pl-6 space-y-2">
-                                <li>Test 1</li>
-                                <li>Test 2</li>
+                                <li>Bloom saffron using ice or heat</li>
+                                <li>In a large bowl, mix the beef and grated onion until it is very well combined (~10 minutes)</li>
+                                <li>Add in the salt, pepper, and bloomed saffron, then knead again until the mixture is sticky</li>
+                                <li>Refridgerate the mixture for one hour</li>
+                                <li>Shape the mixture into oval-shaped blobs</li>
+                                <li>Cook over a grill or fry in a pan</li>
 
                             </ol>
                         </div>
