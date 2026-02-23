@@ -13,8 +13,6 @@ UI Components: shadcn/ui
 
 ## ✨ Features
 
-Dynamically scale ingredient portions (1x, 2x, 3x)
-
 Reactive UI updates using Svelte
 
 Clean, accessible component-based design
@@ -29,8 +27,11 @@ Languages: HTML, TypeScript
 <img width="1855" height="912" alt="image" src="https://github.com/user-attachments/assets/03f44709-8216-4ace-9916-9d92d61891b9" />
 
 ## 🛠️ Installation & Setup
+### Live Demo
+Check out the live deployed site here: [Clarence's Cooking Blog](https://cooking-blog-delta.vercel.app/)
+### Local Development 
 Dependencies:
-- Node.js (v18 or higher recommended)
+- Node.js (v18+)
 - npm (comes with Node)
 
 Instructions:
