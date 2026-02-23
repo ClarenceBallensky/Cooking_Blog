@@ -90,7 +90,23 @@
     let is2x = $derived(portion === 2);
     let is3x = $derived(portion === 3);
 
+    let ingredients = [
+        { name: "ground saffron", amount: .5, unit: "tsp" },
+        { name: "ground beef (80% lean)", amount: 3, unit: "lb" },
+        { name: "white onion", amount: .75, unit: "lb" },
+        { name: "salt", amount: 1, unit: "tbsp" },
+        { name: "black pepper", amount: 1, unit: "tsp" },
+    ];
+
+    let scaledIngredients = $derived(
+        ingredients.map((ingredient) => ({
+            ...ingredient,
+            scaledAmount: ingredient.amount * portion
+        }))
+    );
+
     // end persian kebab portions
+
 </script>
 
 <div class="p-6">
@@ -127,8 +143,8 @@
 
                 <div class="clear-both"></div>
 
-                <Select.Root type="single" name="favoriteFruit" bind:value>
-                    <Select.Trigger class="w-45 text-base font-inherit">
+                <Select.Root type="single" name="sandwichOrQuesadilla" bind:value>
+                    <Select.Trigger class="w-45 text-base font-inherit bg-white">
                         {triggerContent}
                     </Select.Trigger>
                     <Select.Content class="text-base font-inherit">
@@ -473,12 +489,13 @@
             </div>
             
             <!-- Persian Kebab Section -->
-            <div class="mb-10"> 
+            <div class="mb-10">
 
                 <h2 id="kebab" class="py-4">Persian Kebab</h2>
 
-                <div class="flex gap-6 items-start"> <!-- allows me to put content to the right of the image -->
-                    
+                <div class="flex gap-6 items-start">
+
+                    <!-- Image -->
                     <div class="flex-shrink-0">
                         <img 
                             src="/images/Persian_Kebab.jpg"
@@ -487,55 +504,74 @@
                         />
                     </div>
 
-                    <div class="flex flex-col gap-2"> <!-- wrapper for ingredients list -->
-                        <h3>Ingredients</h3>
+                    <!-- RIGHT SIDE COLUMN -->
+                    <div class="flex flex-col gap-8">
 
-                        <div class="flex flex-col gap-6">
-                            <ul class="list-disc pl-6 space-y-1"> 
-                                <li>basmati rice</li>
-                                <li>ground saffron</li>
-                                <li>ground beef, 80% lean</li>
-                                <li>white onion</li>
-                                <li>salt</li>
-                                <li>black pepper</li>
-                                <li>roma tomatoes</li>
-                                <li>pepper</li>
-                            </ul>
+                        <!-- Ingredients + Portion Row -->
+                        <div class="flex gap-6 items-start">
+
+                            <div class="flex flex-col gap-2">
+                                <h3>Ingredients</h3>
+
+                                <ul class="list-disc pl-6 space-y-1">
+                                    {#each scaledIngredients as ingredient}
+                                        <li>
+                                            {ingredient.scaledAmount}
+                                            {ingredient.unit ? ` ${ingredient.unit}` : ""}
+                                            {" "}
+                                            {ingredient.name}
+                                        </li>
+                                    {/each}
+                                </ul>
+                            </div>
+
+                            <div class="flex gap-4 items-center">
+                                <p>Portion</p>
+                                <ButtonGroup.Root>
+                                    <Button onclick={() => portion = 1}
+                                        class={`py-2 transition-colors ${
+                                            is1x
+                                            ? "bg-primary text-primary-foreground"
+                                            : "bg-muted text-foreground hover:bg-accent"
+                                        }`}
+                                    >
+                                        1x
+                                    </Button>
+
+                                    <Button onclick={() => portion = 2}
+                                        class={`py-2 transition-colors ${
+                                            is2x
+                                            ? "bg-primary text-primary-foreground"
+                                            : "bg-muted text-foreground hover:bg-accent"
+                                        }`}
+                                    >
+                                        2x
+                                    </Button>
+
+                                    <Button onclick={() => portion = 3}
+                                        class={`py-2 transition-colors ${
+                                            is3x
+                                            ? "bg-primary text-primary-foreground"
+                                            : "bg-muted text-foreground hover:bg-accent"
+                                        }`}
+                                    >
+                                        3x
+                                    </Button>
+                                </ButtonGroup.Root>
+                            </div>
+
                         </div>
 
-                    </div> 
+                        <!-- Instructions BELOW -->
+                        <div>
+                            <h3>Instructions</h3>
+                            <ol class="list-decimal pl-6 space-y-2">
+                                <li>Test 1</li>
+                                <li>Test 2</li>
 
-                    <div class="flex items-center gap-4"> <!-- wrapper for portion button -->
-                        <p>Portion</p>
-                        <ButtonGroup.Root>
-                            <Button onclick={() => portion = 1}
-                                    class={`py-2 transition-colors ${
-                                        is1x
-                                        ? "bg-primary text-primary-foreground"
-                                        : "bg-muted text-foreground hover:bg-accent"
-                                }`}
-                            >
-                                1x
-                            </Button>
-                            <Button onclick={() => portion = 2}
-                                    class={`py-2 transition-colors ${
-                                        is2x
-                                        ? "bg-primary text-primary-foreground"
-                                        : "bg-muted text-foreground hover:bg-accent"
-                                }`}
-                            >
-                                2x
-                            </Button>
-                            <Button onclick={() => portion = 3} 
-                                    class={`py-2 transition-colors ${
-                                        is3x
-                                        ? "bg-primary text-primary-foreground"
-                                        : "bg-muted text-foreground hover:bg-accent"
-                                }`}
-                            >
-                                3x
-                            </Button>
-                        </ButtonGroup.Root>
+                            </ol>
+                        </div>
+
                     </div>
 
                 </div>
