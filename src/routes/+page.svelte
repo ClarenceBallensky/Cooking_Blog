@@ -115,7 +115,7 @@
 </svelte:head>
 
 
-<div class="p-6">
+<main class="p-6">
    <h1 class="mb-6">Clarence's Cooking Blog</h1>
 
    <div class="flex gap-8 mt-6 items-start">
@@ -626,6 +626,6 @@
 
  
 
-</div>
+</main>
 
 
