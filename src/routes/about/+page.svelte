@@ -2,6 +2,11 @@
     import * as Accordion from "$lib/components/ui/accordion/index.js";
 </script>
 
+<svelte:head>
+	<title>About</title>
+    <meta name="description" content="Get to know the creator behind Clarence's Cooking Blog." />
+</svelte:head>
+
 <div class="p-6">
     <h1 class="mb-6">About Me</h1>
 

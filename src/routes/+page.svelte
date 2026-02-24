@@ -109,6 +109,12 @@
 
 </script>
 
+<svelte:head>
+	<title>Home</title>
+    <meta name="description" content="Explore fun and exciting recipes on Clarence's Cooking Blog." />
+</svelte:head>
+
+
 <div class="p-6">
    <h1 class="mb-6">Clarence's Cooking Blog</h1>
 
